@@ -1,8 +1,14 @@
 import discord
 from discord.ext import commands
 import random
+import levelsys
 
-client = commands.Bot(command_prefix='~')
+cogs = [levelsys]
+
+client = commands.Bot(command_prefix='~', intents=discord.Intents.all())
+
+for i in range(len(cogs)):
+
 
 
 @client.command(name='version')
@@ -153,7 +159,8 @@ async def holdhands(context):
 @client.command(name='killme')
 async def killme(context):
     username = context.message.author.name
-    await context.message.channel.send("oh " + username + ", but we just started having fun :smiling_face_with_3_hearts:")
+    await context.message.channel.send(
+        "oh " + username + ", but we just started having fun :smiling_face_with_3_hearts:")
 
 
 @client.event
