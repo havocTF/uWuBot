@@ -8,7 +8,7 @@ cogs = [levelsys]
 client = commands.Bot(command_prefix='~', intents=discord.Intents.all())
 
 for i in range(len(cogs)):
-
+    cogs[i].setup(client)
 
 
 @client.command(name='version')
@@ -200,4 +200,4 @@ async def on_message(message):
     await client.process_commands(message)
 
 
-client.run('ODIwMDgzNjYxOTgyMDA3MzE3.YEwAbQ.5Kh24PIv3Hy0lv4m4T8ssstikdE')
+client.run('ODIwMDgzNjYxOTgyMDA3MzE3.YEwAbQ.nQHPh1nPZ9WaI-AIMeeTbpqW5go')
