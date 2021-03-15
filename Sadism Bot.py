@@ -4,7 +4,6 @@ import random
 import levelsys
 
 cogs = [levelsys]
-
 client = commands.Bot(command_prefix='~', intents=discord.Intents.all())
 
 for i in range(len(cogs)):
@@ -73,7 +72,6 @@ async def ramen(context):
 
 @client.command(name='food')
 async def food(context):
-    global realtextfoodtext
     randomFood = random.randint(0, 61)
     foods = [':grapes:', ':melon:', ':watermelon:', ':tangerine:', ':lemon:', ':banana:', ':pineapple:', ':mango:',
              ':apple:', ':green_apple:', ':pear:', ':peach:', ':cherries:', ':strawberry:', ':coconut:', ':avocado:',
@@ -92,21 +90,6 @@ async def food(context):
         await context.message.channel.send("Here is your " + realtextfoodtext + " good sir " + textfood)
     else:
         await context.message.channel.send("Here is your " + textfoodtext + " good sir " + textfood)
-
-
-@client.command(name='sadism')
-async def sadism(context):
-    cases = random.randint(1, 5)
-    if cases == 1:
-        await context.message.channel.send("I really want to torture somebody :confounded:")
-    if cases == 2:
-        await context.message.channel.send("*Pleasure is sweetest 'tis when paid for by another's pain* -Ovid")
-    if cases == 3:
-        await context.message.channel.send("It's such a thrill, making another person plead for their life!")
-    if cases == 4:
-        await context.message.channel.send("I want to shred you into pieces and hang you up on my wall~")
-    if cases == 5:
-        await context.message.channel.send("How I relieve my stress is by messing up the insides of another person!")
 
 
 @client.command(name='top10waifus')
@@ -163,10 +146,10 @@ async def killme(context):
         "oh " + username + ", but we just started having fun :smiling_face_with_3_hearts:")
 
 
-@client.event
-async def on_error(context):
-    if on_error():
-        await context.message.channel.send("**You dumb piece of shit that's not a command**")
+# @client.event
+# async def on_error(context):
+#   if on_error():
+#       await context.message.channel.send("**You dumb piece of shit that's not a command**")
 
 
 @client.event
@@ -198,6 +181,5 @@ async def on_message(message):
         general_channel = client.get_channel(810248103654588449)
         await general_channel.send('PLEASE OPPAI MAKE ME HORNI')
     await client.process_commands(message)
-
 
 client.run('ODIwMDgzNjYxOTgyMDA3MzE3.YEwAbQ.nQHPh1nPZ9WaI-AIMeeTbpqW5go')
