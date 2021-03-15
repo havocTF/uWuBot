@@ -38,7 +38,7 @@ class levelsys(commands.Cog):
     @commands.command(name='talk')
     async def talk(self, ctx):
         global shesays
-        cases = random.randint(1, 5)
+        cases = random.randint(6, 6)
         if cases == 1:
             shesays = "*I really want to torture somebody :confounded:*"
         if cases == 2:
@@ -67,6 +67,7 @@ class levelsys(commands.Cog):
             embed.set_footer(text='Type either a, b, or c to answer')
 
             sent = await ctx.send(embed=embed)
+
             try:
                 msg = await self.client.wait_for(
                     "message",
@@ -78,25 +79,46 @@ class levelsys(commands.Cog):
                     await sent.delete()
                     await msg.delete()
 
-                if msg == 'a':
-                    await ctx.send('oh')
-                if msg == 'b':
-                    await ctx.send(':)')
-                if msg == 'c':
-                    await ctx.send('oh')
+                if msg.content == 'a':
+                    embed = discord.Embed(
+                        title="Oh..!",
+                        description="*So you're just everyone else*",
+                        colour=discord.Colour.dark_grey()
+                    )
+                    embed.set_image(url='https://cdn.discordapp.com/attachments/810248103654588449/820889609881780224/unknown.png')
+                    embed.set_footer(text='Awww, you have lost 10 rating')
+                    await ctx.send(embed=embed)
+                if msg.content == 'b':
+                    embed = discord.Embed(
+                        title="Nice!",
+                        description='*Wow, we may have more in common than I thought*',
+                        colour=discord.Colour.dark_purple()
+                    )
+                    embed.set_image(url='https://cdn.discordapp.com/attachments/810248103654588449/820885814501965834/f9a353abbdfc5660eee84c9fe9a6e4c7.png')
+                    embed.set_footer(text='Well done, you have gained 5 rating')
+                    await ctx.send(embed=embed)
+                if msg.content == 'c':
+                    embed = discord.Embed(
+                        title="Oh..!",
+                        description="*So you're just everyone else*",
+                        colour=discord.Colour.dark_grey()
+                    )
+                    embed.set_image(url='https://cdn.discordapp.com/attachments/810248103654588449/820889609881780224/unknown.png')
+                    embed.set_footer(text='Awww, you have lost 10 rating')
+                    await ctx.send(embed=embed)
 
             except asyncio.TimeoutError:
                 await sent.delete()
                 await ctx.send("Cancelling due to timeout.", delete_after=10)
 
-        embed = discord.Embed(
-            title="You let her talk about herself",
-            description=shesays,
-            colour=discord.Colour.dark_red()
-        )
-        embed.set_footer(text='*She likes you more. + 5 rating*')
-        embed.set_image(
-            url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
+        #embed = discord.Embed(
+        #    title="You let her talk about herself",
+        #    description=shesays,
+        #    colour=discord.Colour.dark_red()
+        #)
+        #embed.set_footer(text='*She likes you more. + 5 rating*')
+        #embed.set_image(
+        #    url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
         # embed.set_thumbnail(
         # url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
         # embed.set_author(name='She says',
@@ -104,33 +126,33 @@ class levelsys(commands.Cog):
         # embed.add_field(name='Rating', value='*she likes you more* "`yaml +5 rating', inline=False)
         # embed.add_field(name='Field Name', value='Field Value', inline=True)
         # embed.add_field(name='Field Name', value='Field Value', inline=True)
-        stats = levelling.find_one({"id": ctx.author.id})
-        rating = stats["rating"] + 5
-        levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
-        await ctx.channel.send(embed=embed)
+        #stats = levelling.find_one({"id": ctx.author.id})
+        #rating = stats["rating"] + 5
+        #levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
+        #await ctx.channel.send(embed=embed)
 
-        embed = discord.Embed(
-            title="please tell me what you want me to repeat",
-            description="this will timeout after 1 minute"
+        #embed = discord.Embed(
+        #   title="please tell me what you want me to repeat",
+        #    description="this will timeout after 1 minute"
 
-        )
-        sent = await ctx.send(embed=embed)
+        #)
+        #sent = await ctx.send(embed=embed)
 
-        try:
-            msg = await self.client.wait_for(
-                "message",
-                timeout=60,
-                check=lambda message: message.author == ctx.author
-                                      and message.channel == ctx.channel
-            )
-            if msg:
-                await sent.delete()
-                await msg.delete()
-                await ctx.send(msg.content)
+        #try:
+        #    msg = await self.client.wait_for(
+        #        "message",
+        #        timeout=60,
+        #        check=lambda message: message.author == ctx.author
+        #                              and message.channel == ctx.channel
+        #    )
+        #    if msg:
+        #        await sent.delete()
+        #        await msg.delete()
+        #        await ctx.send(msg.content)
 
-        except asyncio.TimeoutError:
-            await sent.delete()
-            await ctx.send("Cancelling due to timeout.", delete_after=10)
+        #except asyncio.TimeoutError:
+        #    await sent.delete()
+        #    await ctx.send("Cancelling due to timeout.", delete_after=10)
 
     @commands.command(name="echo")
     async def echo(self, ctx):
