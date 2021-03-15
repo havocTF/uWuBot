@@ -1,3 +1,5 @@
+import asyncio
+
 import discord
 from discord.ext import commands
 from pymongo import MongoClient
@@ -47,6 +49,46 @@ class levelsys(commands.Cog):
             shesays = "*I want to shred you into pieces and hang you up on my wall~*"
         if cases == 5:
             shesays = "*How I relieve my stress is by messing up the insides of another person!*"
+        if cases == 6:
+            embed = discord.Embed(
+                titles="Question",
+                description="*How do you like to relive your stress?*",
+                colour=discord.Colour.blue()
+            )
+            embed.add_field(name='Option A', value="I like to read books if I'm feeling stressed", inline=True)
+            embed.add_field(name='Option B',
+                            value="I like to let someone inflict pain or humiliation on me if I'm feeling stressed",
+                            inline=True)
+            embed.add_field(name='Option C',
+                            value='I like to go outside and walk around my neighborhood to relieve my stress',
+                            inline=True)
+            embed.set_image(
+                url='https://cdn.discordapp.com/attachments/810248103654588449/820868806145867796/yesss_2.jpg')
+            embed.set_footer(text='Type either a, b, or c to answer')
+
+            sent = await ctx.send(embed=embed)
+            try:
+                msg = await self.client.wait_for(
+                    "message",
+                    timeout=60,
+                    check=lambda message: message.author == ctx.author
+                                          and message.channel == ctx.channel
+                )
+                if msg:
+                    await sent.delete()
+                    await msg.delete()
+
+                if msg == 'a':
+                    await ctx.send('oh')
+                if msg == 'b':
+                    await ctx.send(':)')
+                if msg == 'c':
+                    await ctx.send('oh')
+
+            except asyncio.TimeoutError:
+                await sent.delete()
+                await ctx.send("Cancelling due to timeout.", delete_after=10)
+
         embed = discord.Embed(
             title="You let her talk about herself",
             description=shesays,
@@ -66,6 +108,55 @@ class levelsys(commands.Cog):
         rating = stats["rating"] + 5
         levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
         await ctx.channel.send(embed=embed)
+
+        embed = discord.Embed(
+            title="please tell me what you want me to repeat",
+            description="this will timeout after 1 minute"
+
+        )
+        sent = await ctx.send(embed=embed)
+
+        try:
+            msg = await self.client.wait_for(
+                "message",
+                timeout=60,
+                check=lambda message: message.author == ctx.author
+                                      and message.channel == ctx.channel
+            )
+            if msg:
+                await sent.delete()
+                await msg.delete()
+                await ctx.send(msg.content)
+
+        except asyncio.TimeoutError:
+            await sent.delete()
+            await ctx.send("Cancelling due to timeout.", delete_after=10)
+
+    @commands.command(name="echo")
+    async def echo(self, ctx):
+        await ctx.message.delete()
+        embed = discord.Embed(
+            title="please tell me what you want me to repeat",
+            description="this will timeout after 1 minute"
+
+        )
+        sent = await ctx.send(embed=embed)
+
+        try:
+            msg = await self.client.wait_for(
+                "message",
+                timeout=60,
+                check=lambda message: message.author == ctx.author
+                                      and message.channel == ctx.channel
+            )
+            if msg:
+                await sent.delete()
+                await msg.delete()
+                await ctx.send(msg.content)
+
+        except asyncio.TimeoutError:
+            await sent.delete()
+            await ctx.send("Cancelling due to timeout.", delete_after=10)
 
     @commands.command(name='rating')
     async def rating(self, ctx):
