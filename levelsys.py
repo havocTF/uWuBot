@@ -41,18 +41,78 @@ class levelsys(commands.Cog):
         cases = random.randint(6, 6)
         if cases == 1:
             shesays = "*I really want to torture somebody :confounded:*"
+            embed = discord.Embed(
+                title="You let her talk about herself",
+                description=shesays,
+                colour=discord.Colour.dark_red()
+            )
+            embed.set_footer(text='*She likes you more. + 2 rating*')
+            embed.set_image(
+                url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
+            stats = levelling.find_one({"id": ctx.author.id})
+            rating = stats["rating"] + 2
+            levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
+            await ctx.channel.send(embed=embed)
         if cases == 2:
             shesays = "'*Pleasure is sweetest 'tis when paid for by another's pain -Ovid*'"
+            embed = discord.Embed(
+                title="You let her talk about herself",
+                description=shesays,
+                colour=discord.Colour.dark_red()
+            )
+            embed.set_footer(text='*She likes you more. + 2 rating*')
+            embed.set_image(
+                url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
+            stats = levelling.find_one({"id": ctx.author.id})
+            rating = stats["rating"] + 2
+            levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
+            await ctx.channel.send(embed=embed)
         if cases == 3:
             shesays = "*It's such a thrill, making another person plead for their life!*"
+            embed = discord.Embed(
+                title="You let her talk about herself",
+                description=shesays,
+                colour=discord.Colour.dark_red()
+            )
+            embed.set_footer(text='*She likes you more. + 2 rating*')
+            embed.set_image(
+                url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
+            stats = levelling.find_one({"id": ctx.author.id})
+            rating = stats["rating"] + 2
+            levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
+            await ctx.channel.send(embed=embed)
         if cases == 4:
             shesays = "*I want to shred you into pieces and hang you up on my wall~*"
+            embed = discord.Embed(
+                title="You let her talk about herself",
+                description=shesays,
+                colour=discord.Colour.dark_red()
+            )
+            embed.set_footer(text='*She likes you more. + 2 rating*')
+            embed.set_image(
+                url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
+            stats = levelling.find_one({"id": ctx.author.id})
+            rating = stats["rating"] + 2
+            levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
+            await ctx.channel.send(embed=embed)
         if cases == 5:
             shesays = "*How I relieve my stress is by messing up the insides of another person!*"
+            embed = discord.Embed(
+                title="You let her talk about herself",
+                description=shesays,
+                colour=discord.Colour.dark_red()
+            )
+            embed.set_footer(text='*She likes you more. + 2 rating*')
+            embed.set_image(
+                url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
+            stats = levelling.find_one({"id": ctx.author.id})
+            rating = stats["rating"] + 2
+            levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
+            await ctx.channel.send(embed=embed)
         if cases == 6:
             embed = discord.Embed(
-                titles="Question",
-                description="*How do you like to relive your stress?*",
+                title="",
+                description="***How do you like to relive your stress?***",
                 colour=discord.Colour.blue()
             )
             embed.add_field(name='Option A', value="I like to read books if I'm feeling stressed", inline=True)
@@ -60,7 +120,7 @@ class levelsys(commands.Cog):
                             value="I like to let someone inflict pain or humiliation on me if I'm feeling stressed",
                             inline=True)
             embed.add_field(name='Option C',
-                            value='I like to go outside and walk around my neighborhood to relieve my stress',
+                            value='I like to go outside and walk around my neighborhood to relieve stress',
                             inline=True)
             embed.set_image(
                 url='https://cdn.discordapp.com/attachments/810248103654588449/820868806145867796/yesss_2.jpg')
@@ -88,6 +148,9 @@ class levelsys(commands.Cog):
                     embed.set_image(url='https://cdn.discordapp.com/attachments/810248103654588449/820889609881780224/unknown.png')
                     embed.set_footer(text='Awww, you have lost 10 rating')
                     await ctx.send(embed=embed)
+                    stats = levelling.find_one({"id": ctx.author.id})
+                    rating = stats["rating"] - 10
+                    levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
                 if msg.content == 'b':
                     embed = discord.Embed(
                         title="Nice!",
@@ -97,6 +160,9 @@ class levelsys(commands.Cog):
                     embed.set_image(url='https://cdn.discordapp.com/attachments/810248103654588449/820885814501965834/f9a353abbdfc5660eee84c9fe9a6e4c7.png')
                     embed.set_footer(text='Well done, you have gained 5 rating')
                     await ctx.send(embed=embed)
+                    stats = levelling.find_one({"id": ctx.author.id})
+                    rating = stats["rating"] + 5
+                    levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
                 if msg.content == 'c':
                     embed = discord.Embed(
                         title="Oh..!",
@@ -106,79 +172,14 @@ class levelsys(commands.Cog):
                     embed.set_image(url='https://cdn.discordapp.com/attachments/810248103654588449/820889609881780224/unknown.png')
                     embed.set_footer(text='Awww, you have lost 10 rating')
                     await ctx.send(embed=embed)
+                    stats = levelling.find_one({"id": ctx.author.id})
+                    rating = stats["rating"] - 10
+                    levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
 
             except asyncio.TimeoutError:
                 await sent.delete()
                 await ctx.send("Cancelling due to timeout.", delete_after=10)
-
-        #embed = discord.Embed(
-        #    title="You let her talk about herself",
-        #    description=shesays,
-        #    colour=discord.Colour.dark_red()
-        #)
-        #embed.set_footer(text='*She likes you more. + 5 rating*')
-        #embed.set_image(
-        #    url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
-        # embed.set_thumbnail(
-        # url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
-        # embed.set_author(name='She says',
-        # icon_url='https://cdn.discordapp.com/avatars/820083661982007317/a3b247b4f68918b9591668ae52ce910e.webp?size=128')
-        # embed.add_field(name='Rating', value='*she likes you more* "`yaml +5 rating', inline=False)
-        # embed.add_field(name='Field Name', value='Field Value', inline=True)
-        # embed.add_field(name='Field Name', value='Field Value', inline=True)
-        #stats = levelling.find_one({"id": ctx.author.id})
-        #rating = stats["rating"] + 5
-        #levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
-        #await ctx.channel.send(embed=embed)
-
-        #embed = discord.Embed(
-        #   title="please tell me what you want me to repeat",
-        #    description="this will timeout after 1 minute"
-
-        #)
-        #sent = await ctx.send(embed=embed)
-
-        #try:
-        #    msg = await self.client.wait_for(
-        #        "message",
-        #        timeout=60,
-        #        check=lambda message: message.author == ctx.author
-        #                              and message.channel == ctx.channel
-        #    )
-        #    if msg:
-        #        await sent.delete()
-        #        await msg.delete()
-        #        await ctx.send(msg.content)
-
-        #except asyncio.TimeoutError:
-        #    await sent.delete()
-        #    await ctx.send("Cancelling due to timeout.", delete_after=10)
-
-    @commands.command(name="echo")
-    async def echo(self, ctx):
-        await ctx.message.delete()
-        embed = discord.Embed(
-            title="please tell me what you want me to repeat",
-            description="this will timeout after 1 minute"
-
-        )
-        sent = await ctx.send(embed=embed)
-
-        try:
-            msg = await self.client.wait_for(
-                "message",
-                timeout=60,
-                check=lambda message: message.author == ctx.author
-                                      and message.channel == ctx.channel
-            )
-            if msg:
-                await sent.delete()
-                await msg.delete()
-                await ctx.send(msg.content)
-
-        except asyncio.TimeoutError:
-            await sent.delete()
-            await ctx.send("Cancelling due to timeout.", delete_after=10)
+        # REUSING CODE GO BRRRRRRRRRRRRRRRR
 
     @commands.command(name='rating')
     async def rating(self, ctx):
