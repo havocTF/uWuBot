@@ -38,7 +38,7 @@ class levelsys(commands.Cog):
     @commands.command(name='talk')
     async def talk(self, ctx):
         global shesays
-        cases = random.randint(1, 6)
+        cases = random.randint(1, 7)
         if cases == 1:
             shesays = "*I really want to torture somebody :confounded:*"
             embed = discord.Embed(
@@ -117,7 +117,7 @@ class levelsys(commands.Cog):
             )
             embed.add_field(name='Option A', value="I like to read books if I'm feeling stressed", inline=True)
             embed.add_field(name='Option B',
-                            value="I like to let someone inflict pain or humiliation on me if I'm feeling stressed",
+                            value="I like to inflict psychological stress on others for fun",
                             inline=True)
             embed.add_field(name='Option C',
                             value='I like to go outside and walk around my neighborhood to relieve stress',
