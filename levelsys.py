@@ -179,6 +179,64 @@ class levelsys(commands.Cog):
             except asyncio.TimeoutError:
                 await sent.delete()
                 await ctx.send("Cancelling due to timeout.", delete_after=10)
+        if cases == 7:
+            embed = discord.Embed(
+                title="",
+                description="***You ever feel like murdering someone?***",
+                colour=discord.Colour.blue()
+            )
+            embed.add_field(name='Option A', value="I love killing other people in my spare time!", inline=True)
+            embed.add_field(name='Option B',
+                            value="Killing is wrong! I'm a law abiding citizen!",
+                            inline=True)
+            embed.set_image(
+                url='https://cdn.discordapp.com/attachments/810248103654588449/820868806145867796/yesss_2.jpg')
+            embed.set_footer(text='Type either a or b')
+
+            sent = await ctx.send(embed=embed)
+
+            try:
+                msg = await self.client.wait_for(
+                    "message",
+                    timeout=60,
+                    check=lambda message: message.author == ctx.author
+                                          and message.channel == ctx.channel
+                )
+                if msg:
+                    await sent.delete()
+                    await msg.delete()
+
+                if msg.content == 'a':
+                    embed = discord.Embed(
+                        title="Nice!",
+                        description="*I love murdering as well!*",
+                        colour=discord.Colour.dark_purple()
+                    )
+                    embed.set_image(
+                        url='https://cdn.discordapp.com/attachments/810248103654588449/820885814501965834/f9a353abbdfc5660eee84c9fe9a6e4c7.png')
+                    embed.set_footer(text='You have gained 5 rating')
+                    await ctx.send(embed=embed)
+                    stats = levelling.find_one({"id": ctx.author.id})
+                    rating = stats["rating"] + 5
+                    levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
+                if msg.content == 'b':
+                    embed = discord.Embed(
+                        title="You motherf*cker!",
+                        description="*You boring little piss baby. I bet you can't do shit with your life*",
+                        colour=discord.Colour.dark_grey()
+                    )
+                    embed.set_image(
+                        url='https://cdn.discordapp.com/attachments/810248103654588449/820889609881780224/unknown.png')
+                    embed.set_footer(text='You have lost 10 rating')
+                    await ctx.send(embed=embed)
+                    stats = levelling.find_one({"id": ctx.author.id})
+                    rating = stats["rating"] - 10
+                    levelling.update_one({'id': ctx.author.id}, {'$set': {'rating': rating}})
+
+            except asyncio.TimeoutError:
+                await sent.delete()
+                await ctx.send("Cancelling due to timeout.", delete_after=10)
+
         # REUSING CODE GO BRRRRRRRRRRRRRRRR
 
     @commands.command(name='rating')

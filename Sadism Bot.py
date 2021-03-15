@@ -155,7 +155,7 @@ async def killme(context):
 @client.event
 async def on_ready():
     general_channel = client.get_channel(810248103654588449)
-    await general_channel.send('@everyone fuck me in the pussi')
+    await general_channel.send('REady~')
     await client.change_presence(status=discord.Status.do_not_disturb,
                                  activity=discord.Game('Masochizing Mllions of Children Around the World'))
 
